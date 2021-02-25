@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +8,22 @@ import { of } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+	public beers: any;
+	public loading: boolean = false;
+
 	constructor(private http: HttpClient) {}
-  	title = 'ratebeer';
+	  title = 'ratebeer';
 
 	ngOnInit() {
 
-		this.http.get(`http://127.0.0.1:5000/beers?query=karmeliet`).pipe(
+		// this.http.get(`http://127.0.0.1:5000/beers?query=Ommegang Double Barrel Dubbel`).pipe(
+		// 	tap((beer) => {
+		// 		console.log(beer)
+		// 	})).subscribe();
+		
+		this.beers = this.http.get(`http://127.0.0.1:5000/style?query=71`).pipe(
 			tap((beer) => {
 				console.log(beer)
-			})).subscribe();
+			}))
 	}
 }
