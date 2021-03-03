@@ -9,21 +9,17 @@ import { tap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 	public beers: any;
-	public loading: boolean = false;
+	public loading: boolean = true;
 
 	constructor(private http: HttpClient) {}
 	  title = 'ratebeer';
 
 	ngOnInit() {
-
-		// this.http.get(`http://127.0.0.1:5000/beers?query=Ommegang Double Barrel Dubbel`).pipe(
-		// 	tap((beer) => {
-		// 		console.log(beer)
-		// 	})).subscribe();
-		
-		this.beers = this.http.get(`http://127.0.0.1:5000/style?query=71`).pipe(
-			tap((beer) => {
-				console.log(beer)
-			}))
+		this.loading = true;
+		this.http.get(`http://127.0.0.1:5000/beers`).pipe(
+			tap((beers) => {
+				this.loading = false;
+				this.beers = beers 
+			})).subscribe();
 	}
 }
