@@ -45,13 +45,13 @@ def beer():
 def styles():
 	allBeers = list()
 	requested_style = request.args['query']
-	if path.exists(requested_style+'.json'):
-		file = open(requested_style+'.json')
+	if path.exists('data/cat_'+requested_style+'.json'):
+		file = open('data/cat_'+requested_style+'.json')
 		data = json.load(file)
+		
 		return data
 	else:
 		beerstyles = rb.beer_style(requested_style)
-
 		beersList = list([b for b in beerstyles])
 		for beer in beersList:
 			beerDict = beer.__dict__
@@ -60,7 +60,7 @@ def styles():
 			del beerpage['brewery']
 			allBeers.append(beerpage)
 
-		with open(requested_style+'.json', 'w') as outfile:
+		with open('data/cat_'+requested_style+'.json', 'w') as outfile:
 			json.dump(json.dumps(allBeers), outfile)
 
 		return json.dumps(allBeers)

@@ -12,7 +12,7 @@ export class BeerDetailsComponent implements OnInit {
 	) { }
 
 	  ngOnInit() {
-		  console.log(this.data)
+		//   console.log(this.data)
 	  }
 
 	  public close() {

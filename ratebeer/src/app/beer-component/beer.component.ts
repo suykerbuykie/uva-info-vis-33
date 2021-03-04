@@ -133,9 +133,18 @@ export class BeerComponent implements OnInit {
 	  private mapBeers(beers: any) {
 		const returnBeers: any = [];
 
-		beers.map((beer: any) => {
-			returnBeers.push(beer);
-		});
+		if (beers.length) {
+			beers.forEach((beer: any) => {
+				returnBeers.push(beer);
+			});
+		} else {
+			for (var key in beers) {
+				// check if the property/key is defined in the object itself, not in parent
+				if (beers.hasOwnProperty(key)) {           
+					returnBeers.push(beers[key]);
+				}
+			}
+		}
 		return returnBeers;
 	  }
 }
