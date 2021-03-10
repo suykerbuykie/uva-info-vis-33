@@ -1,0 +1,13 @@
+<div class="beer-details">
+	<h2 mat-dialog-title>{{data.name}}</h2>
+	<div class="beer-details__container">
+		<ng-container>
+			{{data.description}}
+		</ng-container>
+		<img [src]="data.img_url">
+	</div> 
+	
+	
+	
+	<button mat-button color="primary" (click)="close()">Close</button>
+</div>
