@@ -1,7 +1,29 @@
 .beer-details {
-
-	&__container{
+	&__container {
+		margin-top: 16px;
 		display: flex;
 		flex-direction: row;
 	}
+
+	&__title {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__details-container {
+		margin-top: 16px;
+		width: 80%;
+		margin-left: 10%;
+	}
+
+	&__details {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&--bold {
+		font-weight: bold;
+	}
+
 }
+
