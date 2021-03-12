@@ -10,6 +10,11 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/d
 import { BeerComponent } from './beer-component/beer.component';
 import { BeerService } from './beer-component/beer.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
  
 @NgModule({
   declarations: [
@@ -22,6 +27,11 @@ import { MatButtonModule } from '@angular/material/button';
 	HttpClientModule,
 	AppRoutingModule,
 	MatDialogModule,
+	MatSliderModule,
+	MatListModule,
+	CommonModule,
+	MatTabsModule,
+	MatCardModule,
 	BrowserAnimationsModule,
 	MatButtonModule
   ],

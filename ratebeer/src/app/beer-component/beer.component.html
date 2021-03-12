@@ -1,4 +1,23 @@
 <h1>Infovis Beervisualizer</h1>
+<mat-card class="example-result-card">
+	<mat-card-content>
+	  <h2>Max ABV ({{abv}}%):</h2>
+	  <mat-slider
+		  class="example-margin"
+		  [disabled]="filtersDisabled"
+		  invert="false"
+		  [max]="maxAbv"
+		  [min]="minAbv"
+		  step="0.1"
+		  thumbLabel="false"
+		  [tickInterval]="getSliderTickInterval()"
+		  (input)="changeValue($event)"
+		  vertical="false">
+	  </mat-slider>
+	  <button mat-button color="primary" [disabled]="filtersDisabled" (click)="updateGraph()">Update Graph</button>
+	</mat-card-content>
+  </mat-card>
+
 <span id="nested">beerstyles > categories > <a href="/">beer </a><span *ngIf="selectedCat"> > {{selectedCat}}</span><span *ngIf="selectedSubCat"> > {{selectedSubCat}}</span></span>
 <!-- <p>Available: 'Belgian Ale - Pale / Golden / Single' 'Belgian Ale - Strong Dark'
 	'Bock - Doppelbock' 'Belgian Ale - Strong Pale'

@@ -20,6 +20,13 @@ export class BeerComponent implements OnInit {
 	
 	public selectedCat: string = '';
 	public selectedSubCat: string = '';
+	public abv = 0;
+	public minAbv = 0;
+	public maxAbv = 15;
+	public showTicks = false;
+	public tickInterval = 0.1;
+	public autoTicks = false;
+	public filtersDisabled = true;
 
 	constructor(private http: HttpClient, public dialog: MatDialog) {}
 
@@ -29,6 +36,25 @@ export class BeerComponent implements OnInit {
 		this.draw_tree(this.beers);
 
 	}
+
+	public changeValue(event: any) {
+		this.abv = event.value;
+	} 
+
+	public updateGraph() {
+		const tempDraw = this.beers.children.filter((beer: any) => this.abv >= beer.abv);
+		const children = this.mapBeers(tempDraw);
+		const newDrawing = {children, name: this.selectedSubCat};
+		this.draw_tree(newDrawing);
+	}
+
+	public getSliderTickInterval(): number | 'auto' {
+		if (this.showTicks) {
+		  return this.autoTicks ? 'auto' : this.tickInterval;
+		}
+	
+		return 0;
+	  }
 
 	public autoBox(svg: any) {
 		const c = document.querySelector("#vis-container")
@@ -43,7 +69,6 @@ export class BeerComponent implements OnInit {
 	}
 
 	public draw_tree(data: any) {
-		console.log(data,'aaaax')
 		// const nested_beers = d3.group(data, d => d.style, d => d.substyle, d => d.name);
 		// Root
 		const root = this.tree(d3.hierarchy(data));
@@ -120,11 +145,13 @@ export class BeerComponent implements OnInit {
 				height: '600px'
 			  });
 		  } else {
-			this.http.get(`http://127.0.0.1:5000/style?query=${data.id}`).pipe(
-				tap((beers) => {
-					const children = this.mapBeers(beers);
-					const newDrawing = {children, name: data.name};
-					this.selectedSubCat = data.name;
+			  this.http.get(`http://127.0.0.1:5000/style?query=${data.id}`).pipe(
+				  tap((beers) => {
+					  const children = this.mapBeers(beers);
+					  const newDrawing = {children, name: data.name};
+					  this.selectedSubCat = data.name;
+					  this.beers = newDrawing;
+					  this.filtersDisabled = false;
 					this.draw_tree(newDrawing);
 				})).subscribe();
 		  }
