@@ -5,11 +5,24 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Api, Resource, reqparse
 from os import path
+import pandas as pd
+import pickle as pkl
+import numpy as np
+
 rb = RateBeer()
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
+
+def load_dataset():
+	print("One time loading dataset...")
+	global df_beers
+	df_beers = pd.read_csv('./data/beers_flavor_group_v5.csv')
+	print("Done loading dataset.")
+
+with app.app_context():
+	load_dataset()
 
 @app.route('/beers')
 def beers():
@@ -43,27 +56,31 @@ def beer():
 
 @app.route('/style')
 def styles():
-	allBeers = list()
-	requested_style = request.args['query']
-	if path.exists('data/cat_'+requested_style+'.json'):
-		file = open('data/cat_'+requested_style+'.json')
-		data = json.load(file)
+	requested_style = int(request.args['query'])
+	allBeers = df_beers.loc[df_beers['style_id'] == requested_style]
+
+
+	# if path.exists('data/cat_'+requested_style+'.json'):
+	# 	file = open('data/cat_'+requested_style+'.json')
+	# 	data = json.load(file)
 		
-		return data
-	else:
-		beerstyles = rb.beer_style(requested_style)
-		beersList = list([b for b in beerstyles])
-		for beer in beersList:
-			beerDict = beer.__dict__
-			beerId = beerDict['url'].split("/")[-2]
-			beerpage = rb.get_beer(beerDict['url'], True).__dict__
-			del beerpage['brewery']
-			allBeers.append(beerpage)
+	# 	return data
+	# else:
+	# 	beerstyles = rb.beer_style(requested_style)
+	# 	beersList = list([b for b in beerstyles])
+	# 	for beer in beersList:
+	# 		beerDict = beer.__dict__
+	# 		beerId = beerDict['url'].split("/")[-2]
+	# 		beerpage = rb.get_beer(beerDict['url'], True).__dict__
+	# 		del beerpage['brewery']
+	# 		allBeers.append(beerpage)
 
-		with open('data/cat_'+requested_style+'.json', 'w') as outfile:
-			json.dump(json.dumps(allBeers), outfile)
+	# 	with open('data/cat_'+requested_style+'.json', 'w') as outfile:
+	# 		json.dump(json.dumps(allBeers), outfile)
 
-		return json.dumps(allBeers)
+	print(allBeers, 'ss')
+
+	return allBeers.to_json()
 
 
 
