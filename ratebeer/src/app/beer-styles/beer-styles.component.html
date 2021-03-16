@@ -1,0 +1,14 @@
+<div class="beer-styles">
+    <div class="beer-styles__title">
+        <h2>Beers Styles</h2>
+        <div class="beer-styles__pop-up" (click)="openDetails()">
+            <img src="../../assets/img/pop-up.svg">
+        </div>
+    </div>
+
+    <p *ngIf="selectedBeer.name; else nothingSelected">{{selectedBeer.name}}</p>
+
+    <ng-template #nothingSelected>
+        <p>Please select a beer from the table</p>
+    </ng-template>
+</div>

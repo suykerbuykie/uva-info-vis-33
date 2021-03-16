@@ -1,0 +1,18 @@
+<div class="beer-explorer">
+    <h1>Beer explorer</h1>
+
+    <div class="beer-explorer__content">
+        <div class="beer-explorer__broad-categories">
+            <app-beer-categories (selectedStyleId)="updateStyleId($event)"></app-beer-categories>
+        </div>
+        <div class="beer-explorer__beers">
+            <app-beer-list [beerList]="beerList" (selectedBeer)="updateView($event)">
+
+            </app-beer-list>
+        </div>
+        <div class="beer-explorer__beer-styles">
+            <app-beer-styles [selectedBeer]="selectedBeer"></app-beer-styles>
+
+        </div>
+    </div>
+</div>

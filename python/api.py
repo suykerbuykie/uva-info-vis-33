@@ -18,8 +18,8 @@ api = Api(app)
 def load_dataset():
 	print("One time loading dataset...")
 	global df_beers
-	df_beers = pd.read_csv('./data/beers_flavor_group_v5.csv')
-	print("Done loading dataset.")
+	df_beers = pd.read_pickle('./data/beers.pickle')
+	print("Done loading dataset.", df_beers.head(5))
 
 with app.app_context():
 	load_dataset()
@@ -57,7 +57,10 @@ def beer():
 @app.route('/style')
 def styles():
 	requested_style = int(request.args['query'])
-	allBeers = df_beers.loc[df_beers['style_id'] == requested_style]
+
+	allBeers = df_beers.loc[df_beers['beerstyle_id'] == requested_style]
+
+	# print(df_beers, 'test')
 
 
 	# if path.exists('data/cat_'+requested_style+'.json'):
@@ -78,9 +81,11 @@ def styles():
 	# 	with open('data/cat_'+requested_style+'.json', 'w') as outfile:
 	# 		json.dump(json.dumps(allBeers), outfile)
 
-	print(allBeers, 'ss')
+	# print(allBeers, 'ss')
 
-	return allBeers.to_json()
+	jsonBeers = allBeers.to_json(orient='records')
+
+	return jsonBeers
 
 
 

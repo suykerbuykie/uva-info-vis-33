@@ -16,10 +16,10 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.loading = true;
-		this.http.get(`http://127.0.0.1:5000/beers`).pipe(
-			tap((beers) => {
-				this.loading = false;
-				this.beers = beers 
-			})).subscribe();
+		// this.http.get(`http://127.0.0.1:5000/beers`).pipe(
+		// 	tap((beers) => {
+		// 		this.loading = false;
+		// 		this.beers = beers 
+		// 	})).subscribe();
 	}
 }

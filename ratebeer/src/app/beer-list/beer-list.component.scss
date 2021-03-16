@@ -1,0 +1,95 @@
+.beer-list {
+    &__rotate-name {
+        transform: rotate(-60deg);
+        border-bottom: none;
+    }
+    table {
+        width: 100%;
+        margin-top: 60px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        .mat-header-row {
+            border-bottom: 1px solid rgb(121, 118, 118) !important;
+            height: auto;
+        }
+        .mat-sort-header {
+            white-space: nowrap;
+            overflow: visible;
+            height: auto;
+            max-width: 10px;
+            margin-bottom: 1px;
+        }
+        .mat-cell {
+            padding-left: 4px;
+        }
+        .mat-row {
+            height: 16px;
+        }
+    }
+    &--bold-row {
+        font-weight: 900;
+        width: 20px;
+    }
+    &--title {
+        margin-bottom: 3px;
+        margin-left: 6px;
+    }
+}
+
+h2 {
+    font-weight: 300;
+    display: inline-block;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+h2:before {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    border-bottom: 2px solid #4e4a4a;
+}
+
+.box {
+    height: 10px;
+    width: 10px;
+    background-color: #e4dede;
+}
+
+.earth {
+    background-color: rgb(127, 169, 224);
+}
+
+.roasted-burnt {
+    background-color: rgb(224, 170, 88);
+}
+
+.herbs-spices {
+    background-color: rgb(164, 187, 80);
+}
+
+.minerals {
+    background-color: rgb(59, 57, 57);
+}
+
+.fruit {
+    background-color: rgb(154, 52, 223);
+}
+
+.flower {
+    background-color: rgb(56, 153, 56);
+}
+
+.pastry {
+    background-color: rgb(46, 46, 155);
+}
+
+th.mat-header-cell:last-of-type,
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type {
+    padding-right: 0;
+}
