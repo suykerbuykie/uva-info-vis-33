@@ -61,35 +61,39 @@ h2:before {
 }
 
 .earth {
-    background-color: rgb(127, 169, 224);
+    background-color: #73AF48;
 }
 
 .roasted-burnt {
-    background-color: rgb(224, 170, 88);
+    background-color: #5F4690;
 }
 
 .herbs-spices {
-    background-color: rgb(164, 187, 80);
+    background-color: #38A6A5;
 }
 
 .minerals {
-    background-color: rgb(59, 57, 57);
+    background-color: #E17C05;
 }
 
 .fruit {
-    background-color: rgb(154, 52, 223);
+    background-color: #94346E;
 }
 
 .flower {
-    background-color: rgb(56, 153, 56);
+    background-color: #666666;
 }
 
 .pastry {
-    background-color: rgb(46, 46, 155);
+    background-color: #994E95;
 }
 
 th.mat-header-cell:last-of-type,
 td.mat-cell:last-of-type,
 td.mat-footer-cell:last-of-type {
     padding-right: 0;
+}
+
+.hide {
+    display: none;
 }

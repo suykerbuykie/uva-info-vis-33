@@ -24,7 +24,9 @@ import { BeerCategoriesComponent } from './beer-categories/beer-categories.compo
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { BeerFlavorSpiderComponent } from './beer-flavor-spider/beer-flavor-spider.component';
  
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 	BeerExplorerComponent,
 	BeerListComponent,
 	BeerStylesComponent,
-	BeerCategoriesComponent
+	BeerCategoriesComponent,
+	BeerFlavorSpiderComponent
   ],
   imports: [
 	BrowserModule,
@@ -43,9 +46,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 	MatSortModule,
 	MatDialogModule,
 	ReactiveFormsModule,
+	FormsModule,
 	MatSliderModule,
 	MatFormFieldModule,
 	MatAutocompleteModule,
+	MatSelectModule,
 	MatTableModule,
 	MatListModule,
 	MatFormFieldModule,

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Beer } from '../app.interface';
 import { tap } from 'rxjs/operators';
 import { BeerService } from '../beer-component/beer.service';
@@ -8,16 +8,26 @@ import { BeerService } from '../beer-component/beer.service';
   templateUrl: './beer-explorer.component.html',
   styleUrls: ['./beer-explorer.component.scss']
 })
-export class BeerExplorerComponent implements OnChanges {
+export class BeerExplorerComponent implements OnChanges, OnInit {
 	public beerList: Beer[] = [];
+	public categories: any[] = [];
+	public broadCategories: any[] = [];
 	public selectedBeer: Beer = {};
-	public selectedStyleId: number;
+	public selectedCategoryId: string = ''; 
+	public selectedCategoryName: string = '';
+	public selectedBroadCategoryId: string = 'An';
 
-	constructor(private beerService: BeerService) {}
+	constructor(private beerService: BeerService) { }
+
+	ngOnInit() {
+		this.getBroadCategories();
+		this.broadSelect();
+	}
   
   	ngOnChanges(): void {
-		if (this.selectedStyleId) {
-			this.getBeersFromStyle(this.selectedStyleId);
+		  console.log(this.selectedBroadCategoryId)
+		if (this.selectedCategoryId) {
+			this.getBeersFromCategory(this.selectedCategoryId);
 		}
 	}
 
@@ -25,15 +35,36 @@ export class BeerExplorerComponent implements OnChanges {
 		this.selectedBeer = beer;
 	}
 
-	public updateStyleId(id: number): void {
-		this.selectedStyleId = id;
-		this.getBeersFromStyle(id);
+	public updateCategoryId(id: string): void {
+		this.selectedCategoryId = id;
+		this.selectedCategoryName = this.categories.find((cat) => cat.sub_category_id === id).sub_category;
+		this.getBeersFromCategory(id);
 	}
 
-	private getBeersFromStyle(id: number): void {
-		this.beerService.getBeersFromStyle(id).pipe(
+	public broadSelect() {
+		this.getCategoryFromBroad(this.selectedBroadCategoryId);
+	}
+
+	private getCategoryFromBroad(id: string): void {
+		this.beerService.getCategoryFromBroad(id).pipe(
+			tap((categories) => {
+				this.categories = categories;
+			})
+		).subscribe();
+	}
+
+	private getBeersFromCategory(id: string): void {
+		this.beerService.getBeersFromCategory(id).pipe(
 			tap((beers) => {
 				this.beerList = beers;
+			})
+		).subscribe();
+	}
+
+	private getBroadCategories(): void {
+		this.beerService.getBroadCategories().pipe(
+			tap((cats: any) => {
+				this.broadCategories = cats;
 			})
 		).subscribe();
 	}

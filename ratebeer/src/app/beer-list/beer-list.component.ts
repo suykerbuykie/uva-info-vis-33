@@ -13,20 +13,19 @@ const ELEMENT_DATA: FlavorBeer[] =[];
 
 export class BeerListComponent implements OnChanges {
 	@Input() beerList: Beer[] = [];
+	@Input() selectedCategory: string = '';
 	@Output() selectedBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
 	displayedColumns: string[] = ['name', 'abv', 'earth', 'minerals', 'roasted_burnt', 'herbs_spices', 'fruit', 'pastry', 'flower'];
 	dataSource = new MatTableDataSource(ELEMENT_DATA);
 	public clickedBeer: Beer = {};
 
-	
+	@ViewChild(MatSort) sort: MatSort;
 	
 	ngOnChanges(): void {
 		const flavorMappedBeers = this.flavorMap(this.beerList);
 		this.dataSource = new MatTableDataSource(flavorMappedBeers);
 		this.dataSource.sort = this.sort;
 	}
-
-	@ViewChild(MatSort) sort: MatSort;
 
 	public emitBeer(beer: any) {
 		this.clickedBeer = beer;

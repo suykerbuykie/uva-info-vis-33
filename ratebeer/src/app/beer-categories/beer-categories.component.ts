@@ -1,21 +1,23 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 @Component({
   selector: 'app-beer-categories',
   templateUrl: './beer-categories.component.html',
   styleUrls: ['./beer-categories.component.scss']
 })
-export class BeerCategoriesComponent implements OnInit {
-	@Output() selectedStyleId: EventEmitter<number> = new EventEmitter<number>();
+export class BeerCategoriesComponent implements OnChanges {
+	@Input() categories: any[] = [];
+	@Output() selectedCategoryId: EventEmitter<string> = new EventEmitter<string>();
 
   	constructor() { }
 
-	ngOnInit(): void {
+	ngOnChanges(): void {
+		// console.log(this.categories, 'uuuu')
 	}
 
 
-	public emitStyleId(id: number) {
-		this.selectedStyleId.emit(id);
+	public emitCategoryId(id: string) {
+		this.selectedCategoryId.emit(id);
 	}
 
 }

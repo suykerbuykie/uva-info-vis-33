@@ -1,29 +1,10 @@
 <div class="beer-categories">
-    <h2>Broad categories</h2>
+    <h2>Sub categories</h2>
     <div class="beer-categories__graph-container">
-        <div class="beer-categories__graph" (click)="emitStyleId(56)">
-            <img src="../../assets/img/graph.png" alt="">
-            <p>style 56</p>
-        </div>
-        <div class="beer-categories__graph" (click)="emitStyleId(4)">
-            <img src="../../assets/img/graph.png" alt="">
-            <p>style 4</p>
-        </div>
-        <div class="beer-categories__graph" (click)="emitStyleId(54)">
-            <img src="../../assets/img/graph.png" alt="">
-            <p>style 54</p>
-        </div>
-        <div class="beer-categories__graph" (click)="emitStyleId(72)">
-            <img src="../../assets/img/graph.png" alt="">
-            <p>style 72</p>
-        </div>
-        <div class="beer-categories__graph" (click)="emitStyleId(12)">
-            <img src="../../assets/img/graph.png" alt="">
-            <p>style 12</p>
-        </div>
-        <div class="beer-categories__graph" (click)="emitStyleId(17)">
-            <img src="../../assets/img/graph.png" alt="">
-            <p>style 17</p>
-        </div>
+        <ng-container *ngFor="let cat of categories">
+            <div class="beer-categories__graph" (click)="emitCategoryId(cat.sub_category_id)">
+                <app-beer-flavor-spider [category]="cat"></app-beer-flavor-spider>
+            </div>
+        </ng-container>
     </div>
 </div>
