@@ -1,0 +1,90 @@
+<div class="beer-list">
+    <h2>Beers <span *ngIf="selectedCategory">({{selectedCategory}})</span></h2>
+    <div [class.hide]="!beerList.length">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                <td mat-cell *matCellDef="let element">
+                    <a (click)="emitBeer(element)" [class.beer-list--bold-row]="element.beer_id === clickedBeer.beer_id">
+							{{element.name}} 
+						</a>
+                </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="abv">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ABV </th>
+                <td mat-cell *matCellDef="let element" class="beer-list--bold-row"> {{element.abv | number: '1.0-1'}}% </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="earth">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Earth</span>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.earth]="element.earth"></div>
+                </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="minerals">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Minerals</span>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.minerals]="element.minerals"></div>
+                </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="fruit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Fruit</span>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.fruit]="element.fruit"></div>
+                </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="pastry">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Pastry</span>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.pastry]="element.pastry"></div>
+                </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="herbs_spices">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Herbs & spices </span></th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.herbs-spices]="element.herbs_spices"></div>
+                </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="roasted_burnt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Roasted & burnt </span></th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.roasted-burnt]="element.roasted_burnt"></div>
+                </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="flower">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="beer-list__rotate-name">
+                    <span class="beer-list--title">Flower</span> </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="box" [class.flower]="element.flower"></div>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div [class.hide]="beerList.length">
+        <p>Please select a broad category</p>
+    </div>
+</div>

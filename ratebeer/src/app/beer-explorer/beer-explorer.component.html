@@ -1,0 +1,27 @@
+<div class="beer-explorer">
+    <h1>Beer explorer</h1>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Broad Category:</mat-label>
+        <mat-select [(ngModel)]="selectedBroadCategoryId" name="cat" (selectionChange)="broadSelect()">
+            <mat-option *ngFor="let cat of broadCategories" [value]="cat.broad_category_id">
+                {{cat.broad_category}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="beer-explorer__content">
+        <div class="beer-explorer__broad-categories">
+            <app-beer-categories [categories]="categories" (selectedCategoryId)="updateCategoryId($event)"></app-beer-categories>
+        </div>
+        <div class="beer-explorer__beers">
+            <app-beer-list [beerList]="beerList" [selectedCategory]="selectedCategoryName" (selectedBeer)="updateView($event)">
+
+            </app-beer-list>
+        </div>
+        <div class="beer-explorer__beer-styles">
+            <app-beer-styles [selectedBeer]="selectedBeer"></app-beer-styles>
+
+        </div>
+    </div>
+</div>

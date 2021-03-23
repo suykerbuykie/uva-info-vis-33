@@ -15,20 +15,46 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
+import { BeerExplorerComponent } from './beer-explorer/beer-explorer.component';
+import { BeerListComponent } from './beer-list/beer-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { BeerStylesComponent } from './beer-styles/beer-styles.component';
+import { BeerCategoriesComponent } from './beer-categories/beer-categories.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { BeerFlavorSpiderComponent } from './beer-flavor-spider/beer-flavor-spider.component';
  
 @NgModule({
   declarations: [
 	AppComponent,
 	BeerDetailsComponent,
-	BeerComponent
+	BeerComponent,
+	BeerExplorerComponent,
+	BeerListComponent,
+	BeerStylesComponent,
+	BeerCategoriesComponent,
+	BeerFlavorSpiderComponent
   ],
   imports: [
 	BrowserModule,
 	HttpClientModule,
 	AppRoutingModule,
+	MatSortModule,
 	MatDialogModule,
+	ReactiveFormsModule,
+	FormsModule,
 	MatSliderModule,
+	MatFormFieldModule,
+	MatAutocompleteModule,
+	MatSelectModule,
+	MatTableModule,
 	MatListModule,
+	MatFormFieldModule,
+	MatOptionModule,
 	CommonModule,
 	MatTabsModule,
 	MatCardModule,

@@ -1,0 +1,24 @@
+.beer-categories {
+    &__graph-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &__graph {
+        width: 30%;
+    }
+    h2 {
+        font-weight: 300;
+        display: inline-block;
+        padding-bottom: 5px;
+        position: relative;
+    }
+    h2:before {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        border-bottom: 2px solid #4e4a4a;
+    }
+}
