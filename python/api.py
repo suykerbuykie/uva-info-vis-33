@@ -8,6 +8,7 @@ from os import path
 import pandas as pd
 import pickle as pkl
 import numpy as np
+from ast import literal_eval
 
 rb = RateBeer()
 
@@ -16,15 +17,15 @@ CORS(app)
 api = Api(app)
 
 def load_dataset():
-	print("One time loading dataset...")
+	print("\nOne time loading dataset...")
 	global df_beers
 	global df_broad
 	global df_subcats
 	df_beers = pd.read_pickle('./data/beers.pickle')
 	df_broad = pd.read_pickle('./data/broad_cats.pickle').reset_index()
 	df_subcats = pd.read_pickle('./data/subcats.pickle')
-	
-	print("Done loading dataset.", df_broad.head(5))
+
+	print("Done loading dataset.\n")#, df_broad.head(5))
 
 with app.app_context():
 	load_dataset()
@@ -59,7 +60,6 @@ def beer():
 
 	# return json.dumps(allBeers)
 
-
 @app.route('/broad-categories')
 def broadsCats():
 	return df_broad.to_json(orient='records')
@@ -71,12 +71,42 @@ def broads():
 	allCats = df_subcats.loc[df_subcats['broad_category_id'] == requested_broad]
 	return allCats.to_json(orient='records')
 
-
 @app.route('/beers')
 def beers():
 	requested_category = str(request.args['query'])
 	allBeers = df_beers.loc[df_beers['sub_category_id'] == requested_category]
 	return allBeers.to_json(orient='records')
+
+
+@app.route('/subcategory-allflavors')
+def subcat_flavors():
+	req_beer_id = int(request.args['query'])
+	selected_beer = df_beers[df_beers['beer_id'] == req_beer_id].iloc[0]
+	selected_sub_flavs = eval(selected_beer['sub_flavors'])
+	
+	# Get beers in this subcat
+	subcat_beers = df_beers.loc[df_beers['sub_category_id'] == selected_beer['sub_category_id']].copy()
+
+	uq = {}
+
+	for _, val in subcat_beers.iterrows():
+		beer_id = val["beer_id"]
+		if beer_id == selected_beer['beer_id']:     # Check if this ID == the selected ID
+			continue
+		for subflav in eval(val["sub_flavors"]):	
+			if subflav not in selected_sub_flavs:	# Check if flavor is in 
+				continue
+			if subflav not in uq:
+				uq[subflav] = [beer_id]
+			else:
+				uq[subflav].append(beer_id)
+
+	# Format for output
+	jsonFormatted = []
+	for key in uq:
+		jsonFormatted.append({"name": key, "values": uq[key]})
+
+	return json.dumps(jsonFormatted)
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
