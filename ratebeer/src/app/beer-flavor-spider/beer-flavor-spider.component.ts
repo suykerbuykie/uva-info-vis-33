@@ -30,19 +30,17 @@ export class BeerFlavorSpiderComponent implements OnInit {
 			{ name: "pastry", v: this.category["pastry"] },
 			{ name: "roastedandburnt", v: this.category["roastedandburnt"] },
 		]; 
-		const innerRadius = 2;
+		const innerRadius = 1;
 		const arc = d3.arc()
 			.innerRadius(innerRadius)
-			.outerRadius((d:any) => innerRadius + d.data.v*30)
+			.outerRadius((d:any) => 4.5 + d.data.v*30)
 		
 		const pie = d3.pie()
-			.value(1)
-			.sort(null);
+			.value(1);
 
 		console.log(pie(d2 as any))
 
 		pie(d2 as any).forEach((pie: any) => {
-
 			this.charts.push({path: arc(pie), flavor: pie.data.name});
 		});
 

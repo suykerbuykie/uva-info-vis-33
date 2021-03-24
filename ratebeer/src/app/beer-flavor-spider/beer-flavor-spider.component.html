@@ -1,11 +1,17 @@
-<svg viewBox="-27.5,-27.5,55,55" width="100%">
-	<svg width="50%" height="50%">
+<svg viewBox="-20,-20,40,40"
+	width="100%"
+	overflow="visible">
+	<svg  width="50%" height="50%" >
 		<g transform="translate(27.5,27.5)"></g>
 	</svg>
 
-<ng-container *ngFor="let c of charts">
-    <path [attr.d]="c.path" [attr.fill]="color[c.flavor]"></path>
-</ng-container>
+	<ng-container *ngFor="let c of charts">
+		<path [attr.d]="c.path"
+			[attr.fill]="color[c.flavor]"
+			[attr.stroke]="color[c.flavor]"
+			stroke-width=.2
+			fill-opacity=.7></path>
+	</ng-container>
 
 </svg>
 <p>{{category.sub_category}}</p>
