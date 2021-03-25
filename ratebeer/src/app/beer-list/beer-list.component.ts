@@ -15,7 +15,7 @@ export class BeerListComponent implements OnChanges {
 	@Input() beerList: Beer[] = [];
 	@Input() selectedCategory: string = '';
 	@Output() selectedBeer: EventEmitter<Beer> = new EventEmitter<Beer>();
-	displayedColumns: string[] = ['name', 'abv', 'earth', 'minerals', 'roasted_burnt', 'herbs_spices', 'fruit', 'pastry', 'flower'];
+	displayedColumns: string[] = ['name', 'abv', 'rating','earth', 'minerals', 'roasted_burnt', 'herbs_spices', 'fruit', 'pastry', 'flower'];
 	dataSource = new MatTableDataSource(ELEMENT_DATA);
 	public clickedBeer: Beer = {};
 
