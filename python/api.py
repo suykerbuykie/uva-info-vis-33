@@ -9,6 +9,7 @@ import pandas as pd
 import pickle as pkl
 import numpy as np
 from ast import literal_eval
+from collections import Counter
 
 rb = RateBeer()
 
@@ -21,9 +22,12 @@ def load_dataset():
 	global df_beers
 	global df_broad
 	global df_subcats
+	global df_reviews
 	df_beers = pd.read_pickle('./data/beers.pickle')
 	df_broad = pd.read_pickle('./data/broad_cats.pickle').reset_index()
 	df_subcats = pd.read_pickle('./data/subcats.pickle')
+	df_reviews = json.loads(pd.read_pickle('./data/review_matrix.p'))
+
 
 	print("Done loading dataset.\n")#, df_broad.head(5))
 
@@ -76,6 +80,14 @@ def beers():
 	requested_category = str(request.args['query'])
 	allBeers = df_beers.loc[df_beers['sub_category_id'] == requested_category]
 	return allBeers.to_json(orient='records')
+
+@app.route('/similar_reviewed_beers')
+def similar_reviewed_beers():
+	requested_beer = str(request.args['query'])
+	beer = Counter(df_reviews[requested_beer])
+	topfive = beer.most_common()[:5]
+	return dict((x, y) for x, y in topfive)
+
 
 
 @app.route('/subcategory-allflavors')
