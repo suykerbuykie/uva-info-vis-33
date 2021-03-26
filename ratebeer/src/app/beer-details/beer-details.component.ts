@@ -16,18 +16,17 @@ export class BeerDetailsComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-	this.beerService.getSimilarlyReviewedBeers(this.data.beer_id).pipe(
-		tap((beers) => {
-			if (!beers['error']){
-				this.similarReviewedBeers = beers.sort((a:any, b:any) => a['similarity'] > b['similarity']);
-				
-				this.similarReviewedBeers.forEach((beer) => {
-					beer['beer'] = JSON.parse(beer['beer'])
-				});
-				console.log(this.similarReviewedBeers, 'sss')
-			}
-		})
-	).subscribe();
+		this.beerService.getSimilarlyReviewedBeers(this.data.beer_id).pipe(
+			tap((beers) => {
+				if (!beers['error']){
+					this.similarReviewedBeers = beers.sort((a:any, b:any) => a['similarity'] > b['similarity']);
+					
+					this.similarReviewedBeers.forEach((beer) => {
+						beer['beer'] = JSON.parse(beer['beer'])
+					});
+				}
+			})
+		).subscribe();
 	}
 
 	public close() {

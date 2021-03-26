@@ -10,6 +10,7 @@ export class BeerService {
 	public categories: any[] = [];
 	public broadCategories: any[] = [];
 	public similarReviewedBeers: any[] = [];
+	public subCategoryAllFlavours: any[] = [];
 
   	constructor(private http: HttpClient) {}
 
@@ -39,6 +40,14 @@ export class BeerService {
 
 	public getSimilarlyReviewedBeers(id: string): Observable<any> {
 		return this.http.get(`http://127.0.0.1:5000/similar_reviewed_beers?query=${id}`).pipe(
+			tap((similarReviewedBeers: any) => {
+				this.similarReviewedBeers = similarReviewedBeers;
+			})
+		);
+	}
+
+	public getSubcategoryAllFlavours(id: number): Observable<any> {
+		return this.http.get(`http://127.0.0.1:5000/subcategory-allflavors?query=${id}`).pipe(
 			tap((similarReviewedBeers: any) => {
 				this.similarReviewedBeers = similarReviewedBeers;
 			})
