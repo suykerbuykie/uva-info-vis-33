@@ -2,7 +2,7 @@
     <h2>Sub categories</h2>
     <div class="beer-categories__graph-container">
         <ng-container *ngFor="let cat of categories">
-            <div class="beer-categories__graph" (click)="emitCategoryId(cat.sub_category_id)">
+            <div class="beer-categories__graph" (click)="emitCategoryId(cat.sub_category_id)" [class.beer-categories__graph--selected]="cat.sub_category_id === selectedBeer">
                 <app-beer-flavor-spider [category]="cat"></app-beer-flavor-spider>
             </div>
         </ng-container>
