@@ -2,6 +2,7 @@ import { Component, Input, Output, ViewChild, EventEmitter, OnChanges } from '@a
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Beer, FlavorBeer } from '../app.interface';
+import { MatPaginator } from '@angular/material/paginator';
 
 const ELEMENT_DATA: FlavorBeer[] =[];
 
@@ -20,11 +21,13 @@ export class BeerListComponent implements OnChanges {
 	public clickedBeer: Beer = {};
 
 	@ViewChild(MatSort) sort: MatSort;
+	@ViewChild(MatPaginator) paginator: MatPaginator;
 	
 	ngOnChanges(): void {
 		const flavorMappedBeers = this.flavorMap(this.beerList);
 		this.dataSource = new MatTableDataSource(flavorMappedBeers);
 		this.dataSource.sort = this.sort;
+		this.dataSource.paginator = this.paginator;
 	}
 
 	public emitBeer(beer: any) {

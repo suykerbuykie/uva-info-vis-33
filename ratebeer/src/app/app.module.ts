@@ -27,6 +27,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { BeerFlavorSpiderComponent } from './beer-flavor-spider/beer-flavor-spider.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
  
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BeerFlavorSpiderComponent } from './beer-flavor-spider/beer-flavor-spid
 	ReactiveFormsModule,
 	FormsModule,
 	MatSliderModule,
+	MatPaginatorModule,
 	MatFormFieldModule,
 	MatAutocompleteModule,
 	MatSelectModule,

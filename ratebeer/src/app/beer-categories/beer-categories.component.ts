@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 export class BeerCategoriesComponent implements OnChanges {
 	@Input() categories: any[] = [];
 	@Output() selectedCategoryId: EventEmitter<string> = new EventEmitter<string>();
+	public selectedBeer: string = '';
 
   	constructor() { }
 
@@ -17,6 +18,7 @@ export class BeerCategoriesComponent implements OnChanges {
 
 
 	public emitCategoryId(id: string) {
+		this.selectedBeer = id;
 		this.selectedCategoryId.emit(id);
 	}
 
