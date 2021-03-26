@@ -25,7 +25,6 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 	}
   
   	ngOnChanges(): void {
-		  console.log(this.selectedBroadCategoryId)
 		if (this.selectedCategoryId) {
 			this.getBeersFromCategory(this.selectedCategoryId);
 		}

@@ -72,7 +72,7 @@ export class BeerComponent implements OnInit {
 		// const nested_beers = d3.group(data, d => d.style, d => d.substyle, d => d.name);
 		// Root
 		const root = this.tree(d3.hierarchy(data));
-		console.log(root)
+		// console.log(root)
 	  
 		const svg = d3.create("svg");
 		svg.append("g")

@@ -9,6 +9,7 @@ export class BeerService {
 	public beerList: Beer[] = [];
 	public categories: any[] = [];
 	public broadCategories: any[] = [];
+	public similarReviewedBeers: any[] = [];
 
   	constructor(private http: HttpClient) {}
 
@@ -32,6 +33,14 @@ export class BeerService {
 		return this.http.get(`http://127.0.0.1:5000/broad-categories`).pipe(
 			tap((categories: any) => {
 				this.broadCategories = categories;
+			})
+		);
+	}
+
+	public getSimilarlyReviewedBeers(id: string): Observable<any> {
+		return this.http.get(`http://127.0.0.1:5000/similar_reviewed_beers?query=${id}`).pipe(
+			tap((similarReviewedBeers: any) => {
+				this.similarReviewedBeers = similarReviewedBeers;
 			})
 		);
 	}

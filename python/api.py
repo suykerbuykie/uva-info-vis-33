@@ -84,11 +84,17 @@ def beers():
 @app.route('/similar_reviewed_beers')
 def similar_reviewed_beers():
 	requested_beer = str(request.args['query'])
-	beer = Counter(df_reviews[requested_beer])
-	topfive = beer.most_common()[:5]
-	return dict((x, y) for x, y in topfive)
-
-
+	try:
+		beer = Counter(df_reviews[requested_beer])
+		topfive = beer.most_common()[:5]
+		topfivebeers = []
+		for x, y in topfive:
+			selected_beer = df_beers[df_beers['beer_id'] == int(x)].iloc[0]
+			topfivebeers.append({"similarity": y, "beer": selected_beer.to_json()})
+			
+		return json.dumps(topfivebeers)
+	except:
+		return json.dumps({"error": "No similar reviews"})
 
 @app.route('/subcategory-allflavors')
 def subcat_flavors():

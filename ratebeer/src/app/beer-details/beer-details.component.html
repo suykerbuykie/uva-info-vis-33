@@ -1,34 +1,54 @@
 <div class="beer-details">
-	<div class="beer-details__title">
-		<h2 mat-dialog-title>{{data.name}}</h2> 
-		<button class="close" mat-mini-fab color="warn" (click)="close()">X</button>
-	</div>
-	<mat-tab-group mat-align-tabs="start">
-		<mat-tab label="General Info">
-			<div class="beer-details__container">
-				<ng-container>
-					{{data.description}}
-				</ng-container>
-				<img [src]="data.img_url">
-			</div>
-		</mat-tab>
-		<mat-tab label="Details">
-			<div class="beer-details__details-container">
-				<div class="beer-details__details" role="listitem">
-					<span class="beer-details--bold">ABV:</span> 
-					<span>{{data.abv | number}}%</span>
-				</div>
-				<div class="beer-details__details" role="listitem">
-					<span class="beer-details--bold">Style:</span> 
-					<span>{{data.style}}</span>
-				</div>
-				<div class="beer-details__details" role="listitem">
-					<span class="beer-details--bold">Calories:</span> 
-					<span>{{data.calories}}</span>
-				</div>
-			</div> 
-		</mat-tab>
-		<mat-tab label="Flavors">Add flavors here</mat-tab>
-	  </mat-tab-group>
+    <div class="beer-details__title">
+        <h2 mat-dialog-title>{{data.name}}</h2>
+        <button class="close" mat-mini-fab color="warn" (click)="close()">X</button>
+    </div>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="General Info">
+            <div class="beer-details__container">
+                <ng-container>
+                    {{data.description}}
+                </ng-container>
+                <img [src]="data.img_url">
+            </div>
+        </mat-tab>
+        <mat-tab label="Details">
+            <div class="beer-details__details-container">
+                <div class="beer-details__details" role="listitem">
+                    <span class="beer-details--bold">ABV:</span>
+                    <span>{{data.abv | number}}%</span>
+                </div>
+                <div class="beer-details__details" role="listitem">
+                    <span class="beer-details--bold">Style:</span>
+                    <span>{{data.broad_category}} / {{data.sub_category}} / {{data.beerstyle}}</span>
+                </div>
+                <div class="beer-details__details" role="listitem">
+                    <span class="beer-details--bold">Calories:</span>
+                    <span>{{data.calories}}</span>
+                </div>
+                <div class="beer-details__details" role="listitem">
+                    <span class="beer-details--bold">Rating:</span>
+                    <span>{{data.rating}}</span>
+                </div>
+                <div class="beer-details__details" role="listitem">
+                    <span class="beer-details--bold">Flavors:</span>
+                    <span>{{data.flavors}}{{data.sub_flavors}}</span>
+                </div>
+            </div>
+        </mat-tab>
+        <!-- <mat-tab label="Flavors">Add flavors here</mat-tab> -->
+        <mat-tab label="Similar Beers">
+            <div *ngIf="similarReviewedBeers.length; else noReviewsBlock">
+                <h3>This is the top 5 similar beers according to RateBeer.com reviewers:</h3>
+                <span class="beer-details__similar-beers-container" *ngFor="let similarReviewedBeer of similarReviewedBeers; let i = index">
+					<img class="beer-details--similar-item" [src]="similarReviewedBeer.beer.img_url" style="max-height: 50px" />
+                    <p class="beer-details--similar-item">{{i+1}}. {{similarReviewedBeer.beer.name}} (voted by {{similarReviewedBeer.similarity}} users)</p>
+				</span>
+            </div>
+            <ng-template #noReviewsBlock>
+                <h3>There are no reviews for this beer.</h3>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
 
 </div>

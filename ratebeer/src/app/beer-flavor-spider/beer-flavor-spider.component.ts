@@ -38,7 +38,7 @@ export class BeerFlavorSpiderComponent implements OnInit {
 		const pie = d3.pie()
 			.value(1);
 
-		console.log(pie(d2 as any))
+		// console.log(pie(d2 as any))
 
 		pie(d2 as any).forEach((pie: any) => {
 			this.charts.push({path: arc(pie), flavor: pie.data.name});
