@@ -6,7 +6,71 @@
         </div>
     </div>
 
-    <p *ngIf="selectedBeer.name; else nothingSelected">{{selectedBeer.name}}</p>
+    <p >
+        {{selectedBeer.name}}
+    </p>
+
+    <div class="beer-styles__upsetChart-container" *ngIf="selectedBeer.name">
+        <div class="beer-styles__upsetChart-options">
+            <span *ngFor="let pf of presentFlavors; let i = index">
+                <mat-checkbox 
+                    (change)="updateFlavors()"
+                    [checked]="pf.active"
+                    [(ngModel)]="pf.active"
+                    color="primary">
+                    {{pf.name}}
+                </mat-checkbox>
+                <br />
+            </span>
+        </div>
+
+        <div class="beer-styles__upsetChart-header">
+            <!-- table header -->
+            <div class="beer-styles__grid-header" [attr.width]="activeFlavors.length*(2*radius+spacing)" px>
+
+                <th class="beer-styles__grid-flavor mat-header-cell" *ngFor="let flav of activeFlavors">
+                    <div class="beer-styles__grid-flavor__text-container">
+                        <span class="beer-styles__grid-flavor__label">{{flav.name}}</span>
+                    </div>
+                </th>
+                <th class="beer-styles__grid-flavor mat-header-cell">
+                    <div class="beer-styles__grid-flavor__text-container">
+                        <span class="beer-styles__grid-flavor__label">#beers</span>
+                    </div>
+                </th>
+
+            </div>
+        </div>
+
+        <div class="beer-styles__upsetChart-chart">
+            <!-- for each combination -->
+            <div class="beer-styles__dotgrid" *ngFor="let set of graphData">
+                <!-- create an svg -->
+                <svg [attr.height]="radius*2" [attr.width]="activeFlavors.length*(2*radius+spacing)" px>
+                    <!-- fill svg with circles for each flavor  -->
+                    <circle *ngFor="let flav of activeFlavors; let i = index"
+                        [attr.cx]="radius + i*2*radius + i*spacing" [attr.cy]="radius" [attr.r]="radius"
+                        [attr.fill]="set.name.includes(flav.name)?'darkblue':'#e4dede'">
+                    </circle>
+
+                    <!-- Draw the connecting line -->
+                    <line [attr.x1]="radius + flavorList.indexOf(set.name.split(' + ')[0])*(2*radius+spacing)"
+                        [attr.x2]="radius + flavorList.indexOf(set.name.split(' + ').slice(-1)[0])*(2*radius+spacing)"
+                        [attr.y1]="radius" [attr.y2]="radius" [attr.stroke-width]="radius/2.2" stroke='darkblue'>
+                    </line>
+                </svg>
+
+                <!-- Add number of linked beers -->
+                <div class=beer-styles__arrow-box
+                    [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'"
+                    [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'">
+                    {{set.values.length}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <ng-template #nothingSelected>
         <p>Please select a beer from the table</p>
