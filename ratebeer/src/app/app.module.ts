@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { BeerFlavorSpiderComponent } from './beer-flavor-spider/beer-flavor-spider.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
  
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 	MatTabsModule,
 	MatCardModule,
 	BrowserAnimationsModule,
-	MatButtonModule
+	MatButtonModule,
+	MatCheckboxModule
   ],
   entryComponents: [BeerDetailsComponent],
   providers: [
