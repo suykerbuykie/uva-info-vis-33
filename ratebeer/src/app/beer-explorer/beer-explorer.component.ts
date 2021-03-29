@@ -36,8 +36,14 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 
 	public updateCategoryId(id: string): void {
 		this.selectedCategoryId = id;
-		this.selectedCategoryName = this.categories.find((cat) => cat.sub_category_id === id).sub_category;
-		this.getBeersFromCategory(id);
+		if (!!this.selectedCategoryId) {
+			this.selectedCategoryName = this.categories.find((cat) => cat.sub_category_id === id).sub_category;
+			this.getBeersFromCategory(id);
+			this.selectedBeer = {};
+		} else {
+			this.beerList = [];
+			this.selectedBeer = {};
+		}
 	}
 
 	public broadSelect() {

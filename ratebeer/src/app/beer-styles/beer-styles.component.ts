@@ -158,7 +158,7 @@ export class BeerStylesComponent implements OnInit, OnChanges {
 		this.graphData = this.allGraphData.filter(a => !fL.some(el => a.name.includes(el)))
 		this.maxBeers = Math.max(...this.graphData.map((a: any)  => a.values.length));
 
-		console.log(this.graphData, this.flavorList);
+		// console.log(this.graphData, this.flavorList);
 		// this.graphData = gD.filter(a => );
 
 	}

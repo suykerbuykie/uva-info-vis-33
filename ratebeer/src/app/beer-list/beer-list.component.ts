@@ -28,11 +28,19 @@ export class BeerListComponent implements OnChanges {
 		this.dataSource = new MatTableDataSource(flavorMappedBeers);
 		this.dataSource.sort = this.sort;
 		this.dataSource.paginator = this.paginator;
+		if (this.clickedBeer.sub_category !== this.selectedCategory) {
+			this.clickedBeer = {};
+		}
 	}
 
-	public emitBeer(beer: any) {
-		this.clickedBeer = beer;
-		this.selectedBeer.emit(beer);
+	public emitBeer(beer: Beer) {
+		if (this.clickedBeer === beer) {
+			this.clickedBeer = {};
+			this.selectedBeer.emit({});
+		} else {
+			this.clickedBeer = beer;
+			this.selectedBeer.emit(beer);
+		}
 	}
 
 	private flavorMap(beers: Beer[]): FlavorBeer[] {

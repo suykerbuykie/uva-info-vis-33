@@ -10,10 +10,13 @@ export class BeerCategoriesComponent implements OnChanges {
 	@Output() selectedCategoryId: EventEmitter<string> = new EventEmitter<string>();
 	public selectedBeer: string = '';
 
-  	constructor() { }
-
 	ngOnChanges(): void {
-		// console.log(this.categories, 'uuuu')
+		let currentBroad = null;
+		if (!this.selectedBeer) {
+			currentBroad = this.categories[0]?.broad_category_id;
+		} else if (currentBroad !== this.categories[0]?.broad_category_id) {
+			this.emitCategoryId('');
+		}
 	}
 
 

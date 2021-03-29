@@ -6,9 +6,12 @@
         </div>
     </div>
 
-    <p >
+    <p *ngIf="selectedBeer.name; else nothingSelected">
         {{selectedBeer.name}}
     </p>
+    <ng-template #nothingSelected>
+        <p>Please select a beer from the table</p>
+    </ng-template>
 
     <div class="beer-styles__upsetChart-container" *ngIf="selectedBeer.name">
         <div class="beer-styles__upsetChart-options">
@@ -61,18 +64,11 @@
                 </svg>
 
                 <!-- Add number of linked beers -->
-                <div class=beer-styles__arrow-box
-                    [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'"
-                    [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'">
+                <div class=beer-styles__arrow-box [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'" [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'">
                     {{set.values.length}}
                 </div>
 
             </div>
         </div>
     </div>
-
-
-    <ng-template #nothingSelected>
-        <p>Please select a beer from the table</p>
-    </ng-template>
 </div>
