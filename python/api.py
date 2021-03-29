@@ -108,6 +108,13 @@ def similar_reviewed_beers():
 def get_all_beers():
 	return df_beers.to_json(orient='records')
 
+@app.route('/search-beer')
+def search_beers():
+	search_query = str(request.args['query'])
+	beers = df_beers.loc[df_beers['name'].str.contains(search_query, na=False, case=False)]
+
+	return beers.to_json(orient='records')
+
 @app.route('/subcategory-allflavors')
 def subcat_flavors():
 	req_beer_id = int(request.args['query'])

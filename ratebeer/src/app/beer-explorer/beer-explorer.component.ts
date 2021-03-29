@@ -1,9 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { Beer } from '../app.interface';
-import { debounceTime, map, startWith, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { BeerService } from '../beer-component/beer.service';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-beer-explorer',
@@ -20,6 +20,7 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 	public selectedCategoryName: string = '';
 	public selectedBroadCategoryId: string = 'An';
 	public myControl = new FormControl();
+	public searchedBeer: Beer;
 
 	public filteredOptions: Observable<Beer[]>;
 
@@ -29,17 +30,12 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 		this.getBroadCategories();
 		this.broadSelect();
 
-		this.beerService.getAllBeers().pipe(
-			tap((beers) => {
-				this.allBeers = beers;
-			})
-		).subscribe();
-
-		this.filteredOptions = this.myControl.valueChanges.pipe(
-		  debounceTime(500),
-		  startWith(''),
-		  map(value => typeof value === 'string' ? value : value.name),
-		  map(name => name ? this._filter(name) : this.allBeers.slice())
+		const formChanges$ = this.myControl.valueChanges;
+		this.filteredOptions = formChanges$.pipe(
+			debounceTime(500),
+		  	startWith(''),
+			distinctUntilChanged(),
+			switchMap(value => value ? this.beerService.searchBeer(value) : of(null))
 		);
 	}
   
@@ -51,12 +47,16 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 	}
 
 	public updateBeerAndCategory(beer: Beer): void {
-		console.log(beer)
-		this.getCategoryFromBroad(beer.broad_category_id);
-		this.selectedBroadCategoryId = beer.broad_category_id;
-		this.selectedCategoryId = beer.sub_category_id;
-		this.updateCategoryId(beer.sub_category_id);
-		this.updateView(beer);
+		this.beerService.getCategoryFromBroad(beer.broad_category_id).pipe(
+			tap((categories) => {
+				this.selectedCategoryId = beer.sub_category_id;
+				this.selectedBroadCategoryId = beer.broad_category_id;
+				this.categories = categories;
+				this.selectedCategoryName = this.categories.find((cat) => cat.sub_category_id === beer.sub_category_id).sub_category;
+				this.getBeersFromCategory(beer.sub_category_id);
+				this.selectedBeer = beer;
+			})
+		).subscribe();
 	}
 
 	public updateView(beer: Beer): void {
@@ -102,11 +102,5 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 			})
 		).subscribe();
 	}
-
-	private _filter(name: string): Beer[] {
-		const filterValue = name.toLowerCase();
-	
-		return this.allBeers.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
-	  }
 
 }

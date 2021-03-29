@@ -58,6 +58,10 @@ export class BeerService {
 		);
 	}
 
+	public searchBeer(query: string): Observable<any> {
+		return this.http.get(`http://127.0.0.1:5000/search-beer?query=${query}`);
+	}
+
 	public searchingBeer(value: string){
 		return of(this.beerList.filter( beer => beer.name?.replace(/[\s]/g,'').toLowerCase().indexOf(value.toLowerCase()) === 0 ));
 	}
