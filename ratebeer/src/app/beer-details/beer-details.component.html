@@ -40,10 +40,22 @@
         <mat-tab label="Similar Beers">
             <div *ngIf="similarReviewedBeers.length; else noReviewsBlock">
                 <h3>This is the top 5 similar beers according to RateBeer.com reviewers:</h3>
-                <span class="beer-details__similar-beers-container" *ngFor="let similarReviewedBeer of similarReviewedBeers; let i = index">
-					<img class="beer-details--similar-item" [src]="similarReviewedBeer.beer.img_url" style="max-height: 50px" />
-                    <p class="beer-details--similar-item">{{i+1}}. {{similarReviewedBeer.beer.name}} (voted by {{similarReviewedBeer.similarity}} users)</p>
-				</span>
+                <div class="beer-details__similar-beers-container" *ngFor="let similarReviewedBeer of similarReviewedBeers; let i = index">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{i+1}}. <img class="beer-details--similar-item" [src]="similarReviewedBeer.beer.img_url" style="max-height: 50px" />{{similarReviewedBeer.beer.name}}
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    voted by {{similarReviewedBeer.similarity}} users
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <p>{{similarReviewedBeer.beer.description}}</p>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
             </div>
             <ng-template #noReviewsBlock>
                 <h3>There are no reviews for this beer.</h3>

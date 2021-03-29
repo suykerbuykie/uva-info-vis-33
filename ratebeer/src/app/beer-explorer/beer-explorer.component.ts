@@ -1,7 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { Beer } from '../app.interface';
-import { tap } from 'rxjs/operators';
+import { debounceTime, map, startWith, tap } from 'rxjs/operators';
 import { BeerService } from '../beer-component/beer.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-beer-explorer',
@@ -10,24 +12,51 @@ import { BeerService } from '../beer-component/beer.service';
 })
 export class BeerExplorerComponent implements OnChanges, OnInit {
 	public beerList: Beer[] = [];
+	public allBeers: Beer[] = [];
 	public categories: any[] = [];
 	public broadCategories: any[] = [];
 	public selectedBeer: Beer = {};
 	public selectedCategoryId: string = ''; 
 	public selectedCategoryName: string = '';
 	public selectedBroadCategoryId: string = 'An';
+	public myControl = new FormControl();
+
+	public filteredOptions: Observable<Beer[]>;
 
 	constructor(private beerService: BeerService) { }
 
 	ngOnInit() {
 		this.getBroadCategories();
 		this.broadSelect();
+
+		this.beerService.getAllBeers().pipe(
+			tap((beers) => {
+				this.allBeers = beers;
+			})
+		).subscribe();
+
+		this.filteredOptions = this.myControl.valueChanges.pipe(
+		  debounceTime(500),
+		  startWith(''),
+		  map(value => typeof value === 'string' ? value : value.name),
+		  map(name => name ? this._filter(name) : this.allBeers.slice())
+		);
 	}
   
   	ngOnChanges(): void {
 		if (this.selectedCategoryId) {
 			this.getBeersFromCategory(this.selectedCategoryId);
 		}
+
+	}
+
+	public updateBeerAndCategory(beer: Beer): void {
+		console.log(beer)
+		this.getCategoryFromBroad(beer.broad_category_id);
+		this.selectedBroadCategoryId = beer.broad_category_id;
+		this.selectedCategoryId = beer.sub_category_id;
+		this.updateCategoryId(beer.sub_category_id);
+		this.updateView(beer);
 	}
 
 	public updateView(beer: Beer): void {
@@ -73,5 +102,11 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 			})
 		).subscribe();
 	}
+
+	private _filter(name: string): Beer[] {
+		const filterValue = name.toLowerCase();
+	
+		return this.allBeers.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+	  }
 
 }

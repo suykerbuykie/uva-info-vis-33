@@ -104,6 +104,10 @@ def similar_reviewed_beers():
 	except:
 		return json.dumps({"error": "No similar reviews"})
 
+@app.route('/all-beers')
+def get_all_beers():
+	return df_beers.to_json(orient='records')
+
 @app.route('/subcategory-allflavors')
 def subcat_flavors():
 	req_beer_id = int(request.args['query'])

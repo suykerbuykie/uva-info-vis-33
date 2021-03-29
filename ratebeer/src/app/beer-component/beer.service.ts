@@ -38,6 +38,10 @@ export class BeerService {
 		);
 	}
 
+	public getAllBeers(): Observable<any> {
+		return this.http.get(`http://127.0.0.1:5000/all-beers`);
+	}
+
 	public getSimilarlyReviewedBeers(id: string): Observable<any> {
 		return this.http.get(`http://127.0.0.1:5000/similar_reviewed_beers?query=${id}`).pipe(
 			tap((similarReviewedBeers: any) => {
