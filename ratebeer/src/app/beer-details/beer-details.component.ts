@@ -33,4 +33,9 @@ export class BeerDetailsComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+	public displayFlavors(flavors: string): string {
+		const flavorArray = JSON.parse(flavors.replace(/'/g, '"')).filter((x, i, a) => a.indexOf(x) == i);
+		return flavorArray.join(', ');
+	}
+
 }

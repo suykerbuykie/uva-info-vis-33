@@ -1,14 +1,21 @@
 .beer-styles {
-    &__title {
+    &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+    &__title {
+        display: flex;
+        h2 {
+            margin-right: 8px;
+        }
+        mat-icon {
+            margin-top: 8px;
+            color: #a39e9e;
+        }
+    }
     &__pop-up {
         cursor: pointer;
-        img {
-            width: 20px;
-        }
     }
     h2 {
         font-weight: 300;
@@ -25,47 +32,36 @@
         left: 0;
         border-bottom: 2px solid #4e4a4a;
     }
-
     &__upsetChart-container {
         display: grid;
         grid-auto-columns: min-content;
         // grid-template-rows: min-content auto;
-        grid-template: ". a"
-                       "b c";
-
+        grid-template: ". a" "b c";
     }
-
     &__upsetChart-header {
         grid-area: a;
     }
-
     &__upsetChart-options {
         grid-area: b;
         margin: 0 1em;
     }
-
     &__upsetChart-chart {
         grid-area: c;
     }
-
     &__grid-header {
         display: flex;
         flex-direction: row;
     }
-
     &__grid-flavor {
         // height: 100px;
         display: table;
         border: 0;
         padding-top: 30px;
-        
-        
         &__text-container {
             padding: 50% 0 !important;
             height: 0;
             text-align: center;
         }
-
         &__label {
             display: block;
             transform: translate(-130%) rotate(300deg);
@@ -74,12 +70,10 @@
             width: 20px;
         }
     }
-
     &__dotgrid {
         display: flex;
         align-items: center;
     }
-
     &__arrow-box {
         padding: 0 4px;
         margin: 3px;
@@ -89,14 +83,10 @@
         font-size: .8em;
         position: relative;
         border-radius: 3px;
-
         &:hover {
             font-weight: 600;
             margin-left: 5px;
             cursor: pointer;
         }
     }
-    
-    
 }
-

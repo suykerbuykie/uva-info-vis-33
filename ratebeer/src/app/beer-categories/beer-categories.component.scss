@@ -1,4 +1,14 @@
 .beer-categories {
+    &__title {
+        display: flex;
+        h2 {
+            margin-right: 8px;
+        }
+        mat-icon {
+            margin-top: 8px;
+            color: #a39e9e;
+        }
+    }
     &__graph-container {
         display: flex;
         flex-wrap: wrap;

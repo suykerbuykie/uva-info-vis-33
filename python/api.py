@@ -81,9 +81,9 @@ def beers():
 	allBeers = df_beers.loc[df_beers['sub_category_id'] == requested_category]
 	return allBeers.to_json(orient='records')
 
-@app.route('/beers-by-idlist')
+@app.route('/beers-by-idlist', methods=['POST'])
 def request_by_list():
-	requested_beers = str(request.args['query']).split(',')
+	requested_beers = request.json['beers']
 	allBeers = df_beers.loc[df_beers['beer_id'].isin(requested_beers)]
 	print(allBeers)
 	return allBeers.to_json(orient='records')

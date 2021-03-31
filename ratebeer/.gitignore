@@ -25,6 +25,7 @@ speed-measure-plugin*.json
 
 # python stuff
 /__pycache__
+.pyc
 
 # IDE - VSCode
 .vscode/*

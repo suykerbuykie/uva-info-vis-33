@@ -1,0 +1,33 @@
+.upset-popup {
+    &__title {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__similar-beers-container {
+        display: flex;
+        align-items: center;
+    }
+    &--similar-item {
+        margin: 0 8px 0 0;
+    }
+    &__details {
+        display: flex;
+        justify-content: space-between;
+    }
+    &--bold {
+        font-weight: bold;
+    }
+    mat-expansion-panel,
+    mat-accordion {
+        justify-items: center;
+        margin: 5px;
+        width: 100%;
+    }
+    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description {
+        align-items: center;
+        img {
+            margin-right: 8px;
+        }
+    }
+}

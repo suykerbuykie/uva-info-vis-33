@@ -1,8 +1,12 @@
 <div class="beer-styles">
-    <div class="beer-styles__title">
-        <h2>Beers Styles</h2>
+    <div class="beer-styles__header">
+        <div class="beer-styles__title">
+            <h2>Selected Beer</h2>
+            <mat-icon matTooltip="Click on the right icon to see more specific information about the selected beer.
+			Browse the chart to see the number of beers that share certain flavor attributes. Clicking on the grey square with the number of beers will open a popup listing the other beers that share these flavours. Use the checkboxes on the left to filter for the flavours that you are actively looking to find in other beers.">info</mat-icon>
+        </div>
         <div class="beer-styles__pop-up" (click)="openDetails()">
-            <img src="../../assets/img/pop-up.svg">
+            <mat-icon matTooltip="information about the selected beer">open_in_new</mat-icon>
         </div>
     </div>
 
@@ -76,10 +80,7 @@
                 </svg>
 
                 <!-- Add number of linked beers -->
-                <div class=beer-styles__arrow-box
-                    [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'"
-                    [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'"
-                    (click)="newFn(set.values)">
+                <div class=beer-styles__arrow-box [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'" [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'" (click)="newFn(set.values)">
                     {{set.values.length}}
                 </div>
 

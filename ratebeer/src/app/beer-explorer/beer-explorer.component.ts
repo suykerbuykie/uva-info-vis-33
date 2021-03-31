@@ -76,6 +76,7 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 	}
 
 	public broadSelect() {
+		this.selectedCategoryName = '';
 		this.getCategoryFromBroad(this.selectedBroadCategoryId);
 	}
 
