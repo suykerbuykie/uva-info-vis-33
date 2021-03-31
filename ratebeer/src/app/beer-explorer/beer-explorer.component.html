@@ -1,15 +1,28 @@
 <div class="beer-explorer">
     <h1>Beer explorer</h1>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Broad Category:</mat-label>
-        <mat-select [(ngModel)]="selectedBroadCategoryId" name="cat" (selectionChange)="broadSelect()">
-            <mat-option *ngFor="let cat of broadCategories" [value]="cat.broad_category_id">
-                {{cat.broad_category}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
+    <div class="beer-explorer__header">
+        <mat-form-field appearance="fill">
+            <mat-label>Broad Category:</mat-label>
+            <mat-select [(ngModel)]="selectedBroadCategoryId" name="cat" (selectionChange)="broadSelect()">
+                <mat-option *ngFor="let cat of broadCategories" [value]="cat.broad_category_id">
+                    {{cat.broad_category}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p>or</p>
+        <form>
+            <mat-form-field>
+                <mat-label>Search Beer</mat-label>
+                <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option (click)="updateBeerAndCategory(option)" *ngFor="let option of filteredOptions | async" [value]="option.name">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
     <div class="beer-explorer__content">
         <div class="beer-explorer__broad-categories">
             <app-beer-categories [categories]="categories" (selectedCategoryId)="updateCategoryId($event)"></app-beer-categories>

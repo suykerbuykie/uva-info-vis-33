@@ -1,6 +1,15 @@
 <div class="beer-list">
-    <h2>Beers <span *ngIf="selectedCategory">({{selectedCategory}})</span></h2>
+    <div class="beer-list__title">
+        <h2>Beers <span *ngIf="selectedCategory">({{selectedCategory}})</span></h2>
+        <mat-icon matTooltip="Browse the beers in a selected beer subcategory using this table.
+		Filter the entries by minimum rating or alcohol content, otherwise click any of the column headings of the table to sort the table by the rating, alcohol by volume, or any of the flavor groups present.
+		Clicking on any row will select a beer, and open up the similar beers menu on the right.">info</mat-icon>
+    </div>
     <div [class.hide]="!beerList.length">
+        min rating:
+        <mat-slider [max]="maxRating" [min]="minRating" [step]="0.1" [thumbLabel]="true" (change)="updateRating($event)">
+        </mat-slider>
+
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <!-- Name Column -->
             <ng-container matColumnDef="name">
@@ -90,6 +99,6 @@
         <mat-paginator [pageSizeOptions]="[20, 40, 100]" showFirstLastButtons></mat-paginator>
     </div>
     <div [class.hide]="beerList.length">
-        <p>Please select a broad category</p>
+        <p>Please select a beer subcategory</p>
     </div>
 </div>

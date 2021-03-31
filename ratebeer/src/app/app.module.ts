@@ -29,6 +29,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { BeerFlavorSpiderComponent } from './beer-flavor-spider/beer-flavor-spider.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { UpsetPopupComponent } from './upset-popup/upset-popup.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+
  
 @NgModule({
   declarations: [
@@ -39,7 +45,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 	BeerListComponent,
 	BeerStylesComponent,
 	BeerCategoriesComponent,
-	BeerFlavorSpiderComponent
+	BeerFlavorSpiderComponent,
+	UpsetPopupComponent
   ],
   imports: [
 	BrowserModule,
@@ -50,9 +57,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 	ReactiveFormsModule,
 	FormsModule,
 	MatSliderModule,
+	MatExpansionModule,
 	MatPaginatorModule,
+	MatTooltipModule,
 	MatFormFieldModule,
 	MatAutocompleteModule,
+	MatIconModule,
+	MatInputModule,
 	MatSelectModule,
 	MatTableModule,
 	MatListModule,

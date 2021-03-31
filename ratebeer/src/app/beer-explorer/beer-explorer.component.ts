@@ -1,7 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { Beer } from '../app.interface';
-import { tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { BeerService } from '../beer-component/beer.service';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-beer-explorer',
@@ -10,24 +12,51 @@ import { BeerService } from '../beer-component/beer.service';
 })
 export class BeerExplorerComponent implements OnChanges, OnInit {
 	public beerList: Beer[] = [];
+	public allBeers: Beer[] = [];
 	public categories: any[] = [];
 	public broadCategories: any[] = [];
 	public selectedBeer: Beer = {};
 	public selectedCategoryId: string = ''; 
 	public selectedCategoryName: string = '';
 	public selectedBroadCategoryId: string = 'An';
+	public myControl = new FormControl();
+	public searchedBeer: Beer;
+
+	public filteredOptions: Observable<Beer[]>;
 
 	constructor(private beerService: BeerService) { }
 
 	ngOnInit() {
 		this.getBroadCategories();
 		this.broadSelect();
+
+		const formChanges$ = this.myControl.valueChanges;
+		this.filteredOptions = formChanges$.pipe(
+			debounceTime(300),
+		  	startWith(''),
+			distinctUntilChanged(),
+			switchMap(value => value ? this.beerService.searchBeer(value) : of(null))
+		);
 	}
   
   	ngOnChanges(): void {
 		if (this.selectedCategoryId) {
 			this.getBeersFromCategory(this.selectedCategoryId);
 		}
+
+	}
+
+	public updateBeerAndCategory(beer: Beer): void {
+		this.beerService.getCategoryFromBroad(beer.broad_category_id).pipe(
+			tap((categories) => {
+				this.selectedCategoryId = beer.sub_category_id;
+				this.selectedBroadCategoryId = beer.broad_category_id;
+				this.categories = categories;
+				this.selectedCategoryName = this.categories.find((cat) => cat.sub_category_id === beer.sub_category_id).sub_category;
+				this.getBeersFromCategory(beer.sub_category_id);
+				this.selectedBeer = beer;
+			})
+		).subscribe();
 	}
 
 	public updateView(beer: Beer): void {
@@ -47,6 +76,7 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 	}
 
 	public broadSelect() {
+		this.selectedCategoryName = '';
 		this.getCategoryFromBroad(this.selectedBroadCategoryId);
 	}
 

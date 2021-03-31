@@ -38,6 +38,10 @@ export class BeerService {
 		);
 	}
 
+	public getAllBeers(): Observable<any> {
+		return this.http.get(`http://127.0.0.1:5000/all-beers`);
+	}
+
 	public getSimilarlyReviewedBeers(id: string): Observable<any> {
 		return this.http.get(`http://127.0.0.1:5000/similar_reviewed_beers?query=${id}`).pipe(
 			tap((similarReviewedBeers: any) => {
@@ -54,7 +58,17 @@ export class BeerService {
 		);
 	}
 
+	public searchBeer(query: string): Observable<any> {
+		return this.http.get(`http://127.0.0.1:5000/search-beer?query=${query}`);
+	}
+
 	public searchingBeer(value: string){
 		return of(this.beerList.filter( beer => beer.name?.replace(/[\s]/g,'').toLowerCase().indexOf(value.toLowerCase()) === 0 ));
+	}
+
+	public beersByIdlist(beers: any[]): Observable<any> {
+		return this.http.post(`http://127.0.0.1:5000/beers-by-idlist`, {
+			beers
+		});
 	}
 }

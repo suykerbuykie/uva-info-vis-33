@@ -1,4 +1,14 @@
 .beer-list {
+    &__title {
+        display: flex;
+        h2 {
+            margin-right: 8px;
+        }
+        mat-icon {
+            margin-top: 8px;
+            color: #a39e9e;
+        }
+    }
     &__rotate-name {
         transform: rotate(-60deg);
         border-bottom: none;

@@ -1,5 +1,45 @@
 <div class="beer-categories">
-    <h2>Sub categories</h2>
+    <div class="beer-categories__title">
+        <h2>Sub categories</h2>
+        <mat-icon matTooltip="Browse the beer categories in the dropdown menu above or search for beers in the search bar next to it.
+		Compare the flavor profiles of the beer subcategories for a selected beer category by comparing the sizes of the elements of the pie glyphs, with the flavours indicated by the legend above below.
+		Click on any of the pie glyphs of a beer subcategory to browse the beers within that subcategory in a table view in the Beers section.">info</mat-icon>
+    </div>
+    <div class="beer-categories__legenda">
+        <div>
+            <b>Flavor Legend:</b>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box earth"></div>
+                <span>Earth</span>
+            </div>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box fruit"></div>
+                <span>Fruit</span>
+            </div>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box flower"></div>
+                <span>Flower</span>
+            </div>
+        </div>
+        <div>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box minerals"></div>
+                <span>Minerals</span>
+            </div>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box roasted-burnt"></div>
+                <span>Roasted-burnt</span>
+            </div>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box herbs-spices"></div>
+                <span>Herbs-spices</span>
+            </div>
+            <div class="beer-categories--flavor">
+                <div class="beer-categories--flavor-box pastry"></div>
+                <span>Pastry</span>
+            </div>
+        </div>
+    </div>
     <div class="beer-categories__graph-container">
         <ng-container *ngFor="let cat of categories">
             <div class="beer-categories__graph" (click)="emitCategoryId(cat.sub_category_id)" [class.beer-categories__graph--selected]="cat.sub_category_id === selectedBeer">

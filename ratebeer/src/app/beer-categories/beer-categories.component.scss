@@ -1,4 +1,14 @@
 .beer-categories {
+    &__title {
+        display: flex;
+        h2 {
+            margin-right: 8px;
+        }
+        mat-icon {
+            margin-top: 8px;
+            color: #a39e9e;
+        }
+    }
     &__graph-container {
         display: flex;
         flex-wrap: wrap;
@@ -26,5 +36,50 @@
         bottom: 0;
         left: 0;
         border-bottom: 2px solid #4e4a4a;
+    }
+    &__legenda {
+        display: flex;
+        margin-bottom: 24px;
+        flex-direction: row;
+        font-size: 8pt;
+        line-height: 12px;
+        height: 100%;
+        b {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
+    }
+    &--flavor {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+    }
+    &--flavor-box {
+        height: 8px;
+        width: 8px;
+        margin-right: 8px;
+    }
+    .earth {
+        background-color: #73AF48;
+    }
+    .roasted-burnt {
+        background-color: #5F4690;
+    }
+    .herbs-spices {
+        background-color: #38A6A5;
+    }
+    .minerals {
+        background-color: #E17C05;
+    }
+    .fruit {
+        background-color: #94346E;
+    }
+    .flower {
+        background-color: #666666;
+    }
+    .pastry {
+        background-color: #994E95;
     }
 }

@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { Beer } from '../app.interface';
 import { BeerService } from '../beer-component/beer.service';
 import { BeerDetailsComponent } from '../beer-details/beer-details.component';
+import { UpsetPopupComponent } from '../upset-popup/upset-popup.component';
 import { flavorMap } from './sub-flavor-map.interface';
 
 @Component({
@@ -174,8 +175,12 @@ export class BeerStylesComponent implements OnInit, OnChanges {
 		return color[flavor]
 	}
 
-	public newFn(beerList: any[]) {
-		console.log(beerList);
+	public newFn(data: any[]) {
+		this.dialog.open(UpsetPopupComponent, {
+			data,
+			width: '600px',
+			height: '600px'
+		});
 	}
 
 }
