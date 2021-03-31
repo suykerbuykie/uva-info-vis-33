@@ -6,9 +6,21 @@
 		Clicking on any row will select a beer, and open up the similar beers menu on the right.">info</mat-icon>
     </div>
     <div [class.hide]="!beerList.length">
-        min rating:
-        <mat-slider [max]="maxRating" [min]="minRating" [step]="0.1" [thumbLabel]="true" (change)="updateRating($event)">
-        </mat-slider>
+        <div class="beer-list__filters">
+            <b>Filters:</b>
+            <div class="beer-list__abv-form">
+                <p>Min. rating:</p>
+                <mat-slider [max]="maxRating" [min]="minRating" [step]="0.1" [value]="minRating" [thumbLabel]="true" (change)="updateRating($event)">
+                </mat-slider>
+            </div>
+
+            <form class="beer-list__abv-form" [formGroup]="abvForm" (change)="updateAbv()">
+                <p class="beer-list__to">ABV:</p>
+                <input type="number" [min]="minAbv | number: '1.0-1'" max="maxAbv" step="0.1" formControlName="minAbvControl" placeholder="min" matInput>
+                <span class="beer-list__to">to</span>
+                <input type="number" [min]="minAbv | number: '1.0-1'" max="maxAbv" step="0.1" formControlName="maxAbvControl" placeholder="max" matInput>%
+            </form>
+        </div>
 
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <!-- Name Column -->

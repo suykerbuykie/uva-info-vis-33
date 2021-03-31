@@ -3,6 +3,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Beer, FlavorBeer } from '../app.interface';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormControl, FormGroup } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
 const ELEMENT_DATA: FlavorBeer[] =[];
 
@@ -21,8 +23,13 @@ export class BeerListComponent implements OnChanges, OnInit {
 	public clickedBeer: Beer = {};
 	public maxRating: number;
 	public minRating: number;
+	public maxAbv: number;
+	public minAbv: number;
 	public rating: number;
-
+	public abvForm = new FormGroup({
+		minAbvControl: new FormControl(''),
+		maxAbvControl: new FormControl(''),
+	  });
 
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,6 +48,11 @@ export class BeerListComponent implements OnChanges, OnInit {
 		}
 		this.maxRating = Math.max.apply(Math, this.beerList.map((beer) =>  beer.rating));
 		this.minRating = Math.min.apply(Math, this.beerList.map((beer) =>  beer.rating));
+		this.maxAbv = Math.max.apply(Math, this.beerList.map((beer) =>  beer.abv)).toFixed(1);
+		this.minAbv = Math.min.apply(Math, this.beerList.map((beer) =>  beer.abv)).toFixed(1);
+		this.abvForm.get('minAbvControl').setValue(this.minAbv);
+		this.abvForm.get('maxAbvControl').setValue(this.maxAbv);
+
 	}
 
 	public emitBeer(beer: Beer) {
@@ -56,6 +68,13 @@ export class BeerListComponent implements OnChanges, OnInit {
 	public updateRating(event) {
 		const filterRating = this.beerList.filter((beer) => beer.rating > event.value);
 		this.dataSource = new MatTableDataSource(this.flavorMap(filterRating));
+		this.dataSource.sort = this.sort;
+		this.dataSource.paginator = this.paginator;
+	}
+
+	public updateAbv() {
+		const filterBeers = this.beerList.filter((beer) => beer.abv > this.abvForm.get('minAbvControl').value && beer.abv < this.abvForm.get('maxAbvControl').value);
+		this.dataSource = new MatTableDataSource(this.flavorMap(filterBeers));
 		this.dataSource.sort = this.sort;
 		this.dataSource.paginator = this.paginator;
 	}

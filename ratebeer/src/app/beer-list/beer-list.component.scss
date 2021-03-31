@@ -1,4 +1,32 @@
 .beer-list {
+    &__filters {
+        background-color: rgba(0, 0, 0, .04);
+        width: 50%;
+        padding: 8px;
+        border-radius: 5px;
+        b {
+            margin-bottom: -8px;
+            text-decoration: underline;
+        }
+    }
+    &__abv-form {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        p {
+            margin: 0 8px 0 0;
+            font-weight: bold;
+        }
+        input {
+            width: 50px;
+            border-radius: 3px;
+            background-color: #fff;
+            padding: 2px;
+        }
+    }
+    &__to {
+        margin: 0 8px 0 4px;
+    }
     &__title {
         display: flex;
         h2 {
@@ -15,7 +43,6 @@
     }
     table {
         width: 100%;
-        margin-top: 60px;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
