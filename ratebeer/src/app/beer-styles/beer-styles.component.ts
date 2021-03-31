@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { Beer } from '../app.interface';
 import { BeerService } from '../beer-component/beer.service';
 import { BeerDetailsComponent } from '../beer-details/beer-details.component';
+import { flavorMap } from './sub-flavor-map.interface';
 
 @Component({
   selector: 'app-beer-styles',
@@ -18,8 +19,8 @@ export class BeerStylesComponent implements OnInit, OnChanges {
 	public activeFlavors: any[] = [];
 	public flavorList: string[] = [];
 	public radius: number = 7;
-	public spacing: number = 5;
-	
+	public spacing: number = 5;	
+	public flavorMap = flavorMap;
 
 	@Input() selectedBeer: Beer = {};
 
@@ -156,11 +157,25 @@ export class BeerStylesComponent implements OnInit, OnChanges {
 		const fL = this.presentFlavors.filter(a => !a.active).map(a => a.name);
 		this.flavorList = this.presentFlavors.filter(a => a.active).map(a => a.name);
 		this.graphData = this.allGraphData.filter(a => !fL.some(el => a.name.includes(el)))
+										  .filter(a => a.values.length > 0);
 		this.maxBeers = Math.max(...this.graphData.map((a: any)  => a.values.length));
+	}
 
-		// console.log(this.graphData, this.flavorList);
-		// this.graphData = gD.filter(a => );
+	public getFlavorColor(flavor: string) {
+		const color: any = {
+			"earth": "#73AF48", 
+			"herbsandspices": "#38A6A5",
+			"fruit": "#94346E",
+			"flower": "#666666",
+			"minerals": "#E17C05",
+			"pastry": "#994E95",
+			"roastedandburnt": "#5F4690"
+		};
+		return color[flavor]
+	}
 
+	public newFn(beerList: any[]) {
+		console.log(beerList);
 	}
 
 }
