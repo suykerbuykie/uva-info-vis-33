@@ -32,7 +32,7 @@ export class BeerExplorerComponent implements OnChanges, OnInit {
 
 		const formChanges$ = this.myControl.valueChanges;
 		this.filteredOptions = formChanges$.pipe(
-			debounceTime(500),
+			debounceTime(300),
 		  	startWith(''),
 			distinctUntilChanged(),
 			switchMap(value => value ? this.beerService.searchBeer(value) : of(null))

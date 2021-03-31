@@ -1,6 +1,10 @@
 <div class="beer-list">
     <h2>Beers <span *ngIf="selectedCategory">({{selectedCategory}})</span></h2>
     <div [class.hide]="!beerList.length">
+        min rating:
+        <mat-slider [max]="maxRating" [min]="minRating" [step]="0.1" [thumbLabel]="true" (change)="updateRating($event)">
+        </mat-slider>
+
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
             <!-- Name Column -->
             <ng-container matColumnDef="name">

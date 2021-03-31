@@ -10,44 +10,10 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <div class="beer-explorer__legenda">
-            <div>
-                <b>Flavor Legend:</b>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box earth"></div>
-                    <span>Earth</span>
-                </div>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box fruit"></div>
-                    <span>Fruit</span>
-                </div>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box flower"></div>
-                    <span>Flower</span>
-                </div>
-            </div>
-            <div>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box minerals"></div>
-                    <span>Minerals</span>
-                </div>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box roasted-burnt"></div>
-                    <span>Roasted-burnt</span>
-                </div>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box herbs-spices"></div>
-                    <span>Herbs-spices</span>
-                </div>
-                <div class="beer-explorer--flavor">
-                    <div class="beer-explorer--flavor-box pastry"></div>
-                    <span>Pastry</span>
-                </div>
-            </div>
-        </div>
+        <p>or</p>
         <form>
             <mat-form-field>
-                <mat-label>Search Beer:</mat-label>
+                <mat-label>Search Beer</mat-label>
                 <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option (click)="updateBeerAndCategory(option)" *ngFor="let option of filteredOptions | async" [value]="option.name">

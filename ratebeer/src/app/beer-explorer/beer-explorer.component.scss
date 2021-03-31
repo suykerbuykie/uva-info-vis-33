@@ -3,6 +3,13 @@
     color: #4e4a4a;
     &__header {
         display: flex;
+        width: 500px;
+        justify-content: space-between;
+        align-items: center;
+        @media (max-width: 600px) {
+            flex-direction: column;
+            align-items: start;
+        }
     }
     &__content {
         display: flex;
@@ -48,52 +55,5 @@
         @media (max-width: 768px) {
             width: 100%;
         }
-    }
-    &__legenda {
-        margin-left: 20px;
-        display: flex;
-        flex-direction: row;
-        font-size: 8pt;
-        line-height: 12px;
-        // background-color: rgba(0, 0, 0, .04);
-        // padding: 4px;
-        height: 100%;
-        b {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            flex-direction: column;
-        }
-    }
-    &--flavor {
-        display: flex;
-        align-items: center;
-        margin-right: 30px;
-    }
-    &--flavor-box {
-        height: 8px;
-        width: 8px;
-        margin-right: 8px;
-    }
-    .earth {
-        background-color: #73AF48;
-    }
-    .roasted-burnt {
-        background-color: #5F4690;
-    }
-    .herbs-spices {
-        background-color: #38A6A5;
-    }
-    .minerals {
-        background-color: #E17C05;
-    }
-    .fruit {
-        background-color: #94346E;
-    }
-    .flower {
-        background-color: #666666;
-    }
-    .pastry {
-        background-color: #994E95;
     }
 }
