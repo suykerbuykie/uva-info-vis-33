@@ -49,22 +49,37 @@
             <!-- for each combination -->
             <div class="beer-styles__dotgrid" *ngFor="let set of graphData">
                 <!-- create an svg -->
-                <svg [attr.height]="radius*2" [attr.width]="activeFlavors.length*(2*radius+spacing)" px>
+                <svg [attr.height]="radius*2" [attr.width]="activeFlavors.length*(2*radius+spacing)+'px'">
+
                     <!-- fill svg with circles for each flavor  -->
                     <circle *ngFor="let flav of activeFlavors; let i = index"
                         [attr.cx]="radius + i*2*radius + i*spacing" [attr.cy]="radius" [attr.r]="radius"
-                        [attr.fill]="set.name.includes(flav.name)?'darkblue':'#e4dede'">
+                        [attr.fill]="set.name.includes(flav.name)?'none':'#e4dede'">
                     </circle>
-
+                    
                     <!-- Draw the connecting line -->
                     <line [attr.x1]="radius + flavorList.indexOf(set.name.split(' + ')[0])*(2*radius+spacing)"
                         [attr.x2]="radius + flavorList.indexOf(set.name.split(' + ').slice(-1)[0])*(2*radius+spacing)"
-                        [attr.y1]="radius" [attr.y2]="radius" [attr.stroke-width]="radius/2.2" stroke='darkblue'>
+                        [attr.y1]="radius" [attr.y2]="radius" [attr.stroke-width]="radius/2.1" stroke='darkgrey'>
                     </line>
+                    
+                    <!-- fill svg with circles for each flavor  -->
+                    <circle *ngFor="let flav of activeFlavors; let i = index"
+                        [attr.cx]="radius + i*2*radius + i*spacing" [attr.cy]="radius" [attr.r]="radius"
+                        [attr.fill]="set.name.includes(flav.name)?getFlavorColor(flavorMap[flav.name]):'none'">
+
+                        Flavor name: |{{flav.name}}|, Mapped to: |{{flavorMap[flav.name]}}|
+                    </circle>
+
+
+  
                 </svg>
 
                 <!-- Add number of linked beers -->
-                <div class=beer-styles__arrow-box [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'" [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'">
+                <div class=beer-styles__arrow-box
+                    [style.backgroundColor]="'rgba(1,1,1,'+set.values.length/maxBeers*.8+')'"
+                    [style.color]="set.values.length/maxBeers > .6 ? 'white' : 'black'"
+                    (click)="newFn(set.values)">
                     {{set.values.length}}
                 </div>
 
